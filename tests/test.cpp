@@ -1,4 +1,4 @@
-// Copyright 2020 Your Name <your_email>
+// Copyright 2023 Your Name <your_email>
 
 #include <gtest/gtest.h>
 
@@ -238,27 +238,27 @@ TEST(Test8, plusesDeleter) {
 TEST(Test9, Sort) {
   // базовый сценарий
   std::list<int> nums = {1, 5, 1, 4, -3};
-  Sort(nums);
+  mySort(nums);
   std::list<int> result = {5, 4, 1, 1, -3};
   EXPECT_EQ(nums, result);
   // с нулем
   nums = {1, 5, 4, -3, 0};
-  Sort(nums);
+  mySort(nums);
   result = {5, 4, 1, 0, -3};
   EXPECT_EQ(nums, result);
   // без положительных
   nums = {-1, -5, -4, -3, 0};
-  Sort(nums);
+  mySort(nums);
   result = {0, -1, -3, -4, -5};
   EXPECT_EQ(nums, result);
   // без отрицательных
   nums = {1, 5, 4, 3, 0};
-  Sort(nums);
+  mySort(nums);
   result = {5, 4, 3, 1, 0};
   EXPECT_EQ(nums, result);
   // пустой
   nums = {};
-  Sort(nums);
+  mySort(nums);
   result = {};
   EXPECT_EQ(nums, result);
 }
