@@ -9,6 +9,7 @@ TEST(Test1, Find) {
   // базовый случай
   std::vector<int>::iterator it = Find(v.begin(), v.end(), 17);
   EXPECT_EQ(*it, 17);
+  EXPECT_EQ(it, v.begin() + 1);
   // нет такого элемента в векторе
   it = Find(v.begin(), v.end(), 1023);
   EXPECT_EQ(it, v.end());
@@ -16,6 +17,7 @@ TEST(Test1, Find) {
   v = {2, 2, 2};
   it = Find(v.begin(), v.end(), 2);
   EXPECT_EQ(*it, 2);
+  EXPECT_EQ(it, v.begin());
   // пустой вектор
   v = {};
   it = Find(v.begin(), v.end(), 2);
@@ -36,7 +38,13 @@ TEST(Test2, findInSorted) {
   EXPECT_EQ(*it, 2);
   // пустой вектор
   v = {};
-  it = Find(v.begin(), v.end(), 2);
+  it = findInSorted(v.begin(), v.end(), 2);
+  EXPECT_EQ(it, v.end());
+  // несортированный
+  v = {6, 3, 7, 2, 1};
+  it = findInSorted(v.begin(), v.end(), 7);
+  EXPECT_EQ(*it, 7);
+  it = findInSorted(v.begin(), v.end(), 2);
   EXPECT_EQ(it, v.end());
 }
 
@@ -64,6 +72,9 @@ TEST(Test3, wordsCounter) {
   EXPECT_EQ(0, words);
   // строка с точкой
   words = wordsCounter(".");
+  EXPECT_EQ(0, words);
+  // строка из разделителей
+  words = wordsCounter(".,. .,..   .,");
   EXPECT_EQ(0, words);
 }
 
@@ -108,6 +119,9 @@ TEST(Test4, wordsMapCounter) {
   // строка с точкой
   words = wordsMapCounter(".");
   EXPECT_EQ(true, words.empty());
+  // строка из разделителей
+  words = wordsMapCounter(".,. .,..   .,");
+  EXPECT_TRUE(words.empty());
 }
 
 TEST(Test5, uniqueWords) {
@@ -143,6 +157,9 @@ TEST(Test5, uniqueWords) {
   unique = uniqueWords(",");
   result = {};
   EXPECT_EQ(unique, result);
+  // строка из разделителей
+  unique = uniqueWords(".,. .,..   .,");
+  EXPECT_TRUE(unique.empty());
 }
 
 TEST(Test6, diffWordsCounter) {
@@ -172,6 +189,9 @@ TEST(Test6, diffWordsCounter) {
   EXPECT_EQ(0, words);
   // пробел
   words = diffWordsCounter(" ");
+  EXPECT_EQ(0, words);
+  // строка из разделителей
+  words = diffWordsCounter(".,. .,..   .,");
   EXPECT_EQ(0, words);
 }
 
